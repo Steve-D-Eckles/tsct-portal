@@ -3,15 +3,17 @@
 {% block title %}Select Assignments{% endblock %}
 
 {% block content %}
-  <form action="{{ url_for('assign_dates') }}" method="post">
-    <ul>
-      {% for assignment in assignments %}
-        <li>
+  <ul>
+    {% for assignment in assigns %}
+      <li>
+        <form action="{{ url_for('teacher.assign_submit') }}" method="post">
           {{ assignment['name'] }}
-          <input type="checkbox" name="assign" value="{{ assignment['id']}}">
-        </li>
-      {% endfor %}
-    </ul>
-    <button type="submit" name="submit">Assign Selected</button>
-  </form>
+          <input type="date" name="date" required>
+          <input type="hidden" name="session_id" value="{{ session_id }}">
+          <button type="submit" name="submit" value="{{ assignment['id']}}">Assign</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{{ url_for('teacher.sessions') }}">Done</a>
 {% endblock %}

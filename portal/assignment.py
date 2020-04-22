@@ -105,25 +105,25 @@ def assign_work():
                 cur.execute("""
                     SELECT * FROM assignments
                     WHERE course_id IN (SELECT course_id FROM sessions WHERE id = %s)
-                """, (session_id,))
+                    AND id NOT IN (SELECT assignment_id FROM session_assignments
+                                   WHERE session_id = %s)
+                """, (session_id, session_id))
                 assigns = cur.fetchall()
-        return render_template('assign-work.html', assigns=assigns)
+        return render_template('assign-work.html', assigns=assigns, session_id=session_id)
     return redirect(url_for('teacher.sessions'))
 
-@bp.route('/assignments/assign/dates', methods=('GET', 'POST'))
+@bp.route('/assignments/assign/submit', methods=('GET', 'POST'))
 @login_required
 @admin
-def assign_dates():
+def assign_submit():
     if request.method == 'POST':
-        assign_ids = request.form.getlist('assign')
-        assigns = []
+        date = request.form['date']
+        assign_id = request.form['submit']
+        session_id = request.form['session_id']
         with db.get_db() as con:
             with con.cursor() as cur:
-                for id in assign_ids:
-                    cur.execute("""
-                        SELECT * FROM assignments
-                        WHERE id = %s
-                    """, (id,))
-                    assigns.append(cur.fetchone())
-        return render_template('assign-dates.html')
+                cur.execute("""
+                    INSERT INTO session_assignments (session_id, assignment_id, due_date)
+                    VALUES (%s, %s, %s)
+                """, (session_id, assign_id, date))
     return redirect(url_for('teacher.sessions'))
