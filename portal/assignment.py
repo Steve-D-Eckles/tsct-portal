@@ -67,3 +67,63 @@ def submit_assignments():
                     WHERE id = %s
                 """, (name, desc, points, id))
     return redirect(url_for('teacher.assignments'))
+
+@bp.route('/assignments/create', methods=('GET', 'POST'))
+@login_required
+@admin
+def create_assignments():
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        points = request.form['points']
+        course = request.form['course']
+        with db.get_db() as con:
+            with con.cursor() as cur:
+                cur.execute("""
+                    INSERT INTO assignments (name, description, points, course_id)
+                    VALUES (%s, %s, %s, %s)
+                """, (name, description, points, course))
+        return redirect(url_for('teacher.assignments'))
+
+    with db.get_db() as con:
+        with con.cursor() as cur:
+            cur.execute("""
+                SELECT * FROM courses
+                WHERE teacher_id = %s
+            """, (g.user['id'],))
+            courses = cur.fetchall()
+    return render_template('create-assignments.html', courses=courses)
+
+@bp.route('/assignments/assign', methods=('GET', 'POST'))
+@login_required
+@admin
+def assign_work():
+    if request.method == 'POST':
+        session_id = request.form['session_id']
+        with db.get_db() as con:
+            with con.cursor() as cur:
+                cur.execute("""
+                    SELECT * FROM assignments
+                    WHERE course_id IN (SELECT course_id FROM sessions WHERE id = %s)
+                """, (session_id,))
+                assigns = cur.fetchall()
+        return render_template('assign-work.html', assigns=assigns)
+    return redirect(url_for('teacher.sessions'))
+
+@bp.route('/assignments/assign/dates', methods=('GET', 'POST'))
+@login_required
+@admin
+def assign_dates():
+    if request.method == 'POST':
+        assign_ids = request.form.getlist('assign')
+        assigns = []
+        with db.get_db() as con:
+            with con.cursor() as cur:
+                for id in assign_ids:
+                    cur.execute("""
+                        SELECT * FROM assignments
+                        WHERE id = %s
+                    """, (id,))
+                    assigns.append(cur.fetchone())
+        return render_template('assign-dates.html')
+    return redirect(url_for('teacher.sessions'))

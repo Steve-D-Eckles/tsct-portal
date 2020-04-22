@@ -10,6 +10,7 @@
           {{ item['major'] }}{{ item['course_code']}} {{ item['session_name']}} - {{ item['course_name']}}
           <input type="checkbox" name="id" value="{{ item['id'] }}">
           <button type="submit" formaction="{{ url_for('teacher.session_edit') }}" name="edit" value="{{ item['id'] }}">Edit</button>
+          <button type="submit" formaction="{{ url_for('teacher.assign_work') }}" name="session_id" value="{{ item['id'] }}">Assign Work</button>
         </li>
       {% endfor %}
     </ul>

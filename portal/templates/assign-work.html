@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Select Assignments{% endblock %}
+
+{% block content %}
+  <form action="{{ url_for('assign_dates') }}" method="post">
+    <ul>
+      {% for assignment in assignments %}
+        <li>
+          {{ assignment['name'] }}
+          <input type="checkbox" name="assign" value="{{ assignment['id']}}">
+        </li>
+      {% endfor %}
+    </ul>
+    <button type="submit" name="submit">Assign Selected</button>
+  </form>
+{% endblock %}
