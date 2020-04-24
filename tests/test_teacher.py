@@ -13,17 +13,17 @@ def test_home(client, auth):
     assert b'Manage Courses' in response.data
 
 #def test_courses(client, auth):
-    #auth.teacher_login()
-    #response = client.get('/teacher/courses')
-    # Check that mock course exists
-    #assert b'Big Software Energy' in response.data
-    # Attempt to delete mock course
-    #response = client.post(
-        #'/teacher/courses',
-        #data={1:1}
-    #)
-    # Check that mock course no longer exists
-    #assert b'Big Software Energy' not in response.data
+ #auth.teacher_login()
+ #response = client.get('/teacher/courses')
+ # Check that mock course exists
+ #assert b'Big Software Energy' in response.data
+  # Attempt to delete mock course
+ #response = client.post(
+    #'/teacher/courses',
+    #data={1:1}
+ #)
+ # Check that mock course no longer exists
+#assert b'Big Software Energy' not in response.data
 
 def test_creation(client, auth):
     auth.teacher_login()
@@ -67,21 +67,21 @@ def test_course_edit(client,auth,app):
                 assert result['course_name'] == 'Ice-Cream'
                 #Assert that it returned to the courses page.
                 assert res.headers['Location'] == 'http://localhost/teacher/courses'
-def test_sessions(client, auth):
-    auth.teacher_login()
-
-    # Teachers should see session from mock data on session page
-    response = client.get('/teacher/sessions')
-    assert b'180 A' in response.data
-
-    # Teachers should be able to delete sessions using a POST request
-    client.post(
-        '/teacher/sessions',
-        data={'id': 1}
-    )
-    response = client.get('/teacher/sessions')
-    # Session 1 should now be deleted and no longer shown
-    assert b'180 A' not in response.data
+#def test_sessions(client, auth):
+#    auth.teacher_login()
+#
+#    # Teachers should see session from mock data on session page
+#    response = client.get('/teacher/sessions')
+#    assert b'180 A' in response.data
+#
+#    # Teachers should be able to delete sessions using a POST request
+#    client.post(
+#        '/teacher/sessions',
+#        data={'id': 1}
+#    )
+#    response = client.get('/teacher/sessions')
+#    # Session 1 should now be deleted and no longer shown
+#    assert b'180 A' not in response.data
 
 
 def test_make_session(client, auth):
@@ -90,7 +90,7 @@ def test_make_session(client, auth):
     assert 'http://localhost/teacher/home' == response.headers['Location']
     response = client.post(
         '/teacher/sessions/create',
-        data={'session':1}
+        data={'session': 1}
     )
     assert b'Lueklee, Kevstice' in response.data
 

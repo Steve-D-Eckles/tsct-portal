@@ -74,9 +74,7 @@ CREATE TABLE session_assignments (
   session_id bigint REFERENCES sessions(id) NOT NULL,
   -- Create a one-to-many relationship between assignments and sessions
   assignment_id bigint REFERENCES assignments(id) NOT NULL,
-  --Create a one to many relationsh
   due_date date
-  --Create a one to many relationship between the assignment and the student
 );
 
 CREATE TABLE assignment_grades(

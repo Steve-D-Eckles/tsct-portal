@@ -30,3 +30,6 @@ VALUES (1, 1, '4/25/2020'),
        (1, 2, '4/30/2020'),
        (1, 3, '5/02/2020'),
        (2, 4, '08/01/2020');
+
+INSERT INTO assignment_grades (owner_id, assigned_id, grades)
+VALUES (2, 1, 150);
