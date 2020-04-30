@@ -11,6 +11,12 @@
         <p>Due Date: {{ assignment['due_date'] }}</p>
         <p>Description: {{ assignment['description'] }}</p>
         <p>Possible Points: {{ assignment['points'] }}</p>
+        <form action="{{ url_for('uploads.upload_file') }}" method='post' enctype=multipart/form-data>
+          <input type="file" name="file">
+          <input type="submit" value="Upload">
+          <input type="hidden" name="assignment_id" value="{{ assignment['id'] }}">
+        </form>
+
       </li>
     {% endfor %}
   </ul>

@@ -119,6 +119,8 @@ def create_assignments():
         desc = request.form['description']
         points = request.form['points']
         course = request.form['course']
+        assignment_type = request.form['assignment_type']
+
         # Validate the collected data
         if (
             validate_text(name, 50) and
@@ -130,9 +132,9 @@ def create_assignments():
             with db.get_db() as con:
                 with con.cursor() as cur:
                     cur.execute("""
-                        INSERT INTO assignments (name, description, points, course_id)
-                        VALUES (%s, %s, %s, %s)
-                    """, (name, desc, points, course))
+                        INSERT INTO assignments (name, description, points, course_id, assignment_type)
+                        VALUES (%s, %s, %s, %s, %s)
+                    """, (name, desc, points, course, assignment_type))
 
                     return redirect(url_for('teacher.assignments'))
         else:
