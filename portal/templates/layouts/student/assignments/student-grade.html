@@ -5,18 +5,23 @@
 
 {% block content %}
 
-  <!-- Shows scheduling for classes -->
+
   <section id="grade">
     {% if g.user %}
-    <h2>{{ session_info['major'] }} {{ session_info['course_code'] }} {{ session_info['session_name'] }} {{session_info['course_name']}} </h2>
-      <ul>
+      <table>
+        <thead>
+          <tr>
+            <th>{{ session_info['major'] }} {{ session_info['course_code'] }} {{ session_info['session_name'] }} {{session_info['course_name']}} </th>
+          </tr>
+        </thead>
         {% for assignment in assignments %}
-          <li>
-            <h2>{{ assignment['name'] }}</h2>
-            <p>Points: {{ assignment['grades'] }}/{{ assignment['points'] }}</p>
-          </li>
+        <tbody>
+          <td>{{ assignment['name'] }}</td>
+          <td>Points: {{ assignment['grades'] }}/{{ assignment['points'] }}</td>
+        </tbody>
         {% endfor %}
-      </ul>
+      </table>
     {% endif %}
   </section>
+
 {% endblock %}
