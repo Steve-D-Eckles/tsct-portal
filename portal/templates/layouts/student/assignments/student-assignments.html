@@ -4,14 +4,14 @@
 {% block title %}Assignments{% endblock %}
 
 {% block content %}
-  <ul class="courseList">
+  <table>
     {% for assignment in assignments %}
-      <li>
-        <h2>{{ assignment['name'] }}</h2>
-        <p>Due Date: {{ assignment['due_date'] }}</p>
-        <p>Description: {{ assignment['description'] }}</p>
-        <p>Possible Points: {{ assignment['points'] }}</p>
-      </li>
+      <tbody>
+        <td><h2>{{ assignment['name'] }}</h2></td>
+        <td>Due Date: {{ assignment['due_date'] }}</td>
+        <td>Description: {{ assignment['description'] }}</td>
+        <td>Possible Points: {{ assignment['points'] }}</td>
+      </tbody>
     {% endfor %}
-  </ul>
+  </table>
 {% endblock %}
