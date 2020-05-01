@@ -5,17 +5,18 @@
 
 {% block content %}
   <form method="post">
-    <ul>
+    <table>
       {% for assignment in assignments %}
-      <li>
-        {{ assignment['course_name']}}–{{ assignment['name'] }}
-        <input type="checkbox" name="id" value="{{ assignment['id'] }}">
-        <button type="submit" formaction="{{ url_for('teacher.edit_assignments') }}" name="edit" value="{{ assignment['id'] }}">Edit</button>
-        <button type="submit" formaction="{{ url_for('teacher.assignment_grades') }}" name="assignment_id" value="{{ assignment['id'] }}">Manage Grades</button>
-      </li>
+        <tbody>
+          <td>{{ assignment['course_name']}}–{{ assignment['name'] }}</td>
+          <td><input type="checkbox" name="id" value="{{ assignment['id'] }}"></td>
+          <td><button type="submit" formaction="{{ url_for('teacher.edit_assignments') }}" name="edit" value="{{ assignment['id'] }}">Edit</button></td>
+          <td><button type="submit" formaction="{{ url_for('teacher.assignment_grades') }}" name="assignment_id" value="{{ assignment['id'] }}">Manage Grades</button></td>
+        </tbody>
       {% endfor %}
-    </ul>
+    </table>
     <button type="submit">Delete Selected</button>
   </form>
+
   <a href="{{ url_for('teacher.create_assignments') }}">Create Assignment</a>
 {% endblock %}
