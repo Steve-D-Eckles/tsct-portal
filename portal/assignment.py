@@ -86,22 +86,24 @@ def submit_assignments():
         name = request.form['name']
         desc = request.form['description']
         points = request.form['points']
+        assignment_type = request.form['assignment_type']
         id = request.form['submit']
         # Validate all of the submitted data
         if (
             validate(id, 'assignments') and
             validate_text(name, 50) and
             validate_text(desc, 300) and
-            validate_number(points, 100000)
+            validate_number(points, 100000) and
+            assignment_type in ['Handout', 'Upload']
             ):
             # If validation passes, update the database
             with db.get_db() as con:
                 with con.cursor() as cur:
                     cur.execute("""
                         UPDATE assignments
-                        SET name = %s, description = %s, points = %s
+                        SET name = %s, description = %s, points = %s, assignment_type = %s
                         WHERE id = %s
-                    """, (name, desc, points, id))
+                    """, (name, desc, points, assignment_type, id))
         else:
             # If validation fails, prepare an error to be shown to the user
             flash('Something went wrong.')
@@ -126,7 +128,8 @@ def create_assignments():
             validate_text(name, 50) and
             validate_text(desc, 300) and
             validate_number(points, 100000) and
-            validate(course, 'courses')
+            validate(course, 'courses') and
+            assignment_type in ['Handout', 'Upload']
             ):
             # If validation succeeds, create a new record in the database
             with db.get_db() as con:
@@ -222,23 +225,38 @@ def assign_submit():
 def grade():
     # TODO: add docstring / comments
     if request.method == 'POST':
-        code = request.form['grade']
+        assignment_id = request.form['assignment_id']
 
-        if validate(code, 'assignments'):
+        if validate(assignment_id, 'assignments'):
             with db.get_db() as con:
                 with con.cursor() as cur:
                     cur.execute("""
-                        SELECT r.name, r.description, r.points, u.first_name, u.last_name, u.id, a.work_id
-                        FROM session_assignments a JOIN assignments r
-                        ON a.assignment_id = r.id
-                        JOIN roster d
-                        ON a.session_id = d.session_id
+                        SELECT name, assignment_type
+                        FROM assignments
+                        WHERE id = %s
+                    """, (assignment_id,))
+                    heading = cur.fetchone()
+
+                    cur.execute("""
+                        SELECT a.description, a.points, a.assignment_type, u.first_name, u.last_name, u.id
+                        FROM session_assignments sa JOIN assignments a
+                        ON sa.assignment_id = a.id
+                        JOIN roster r
+                        ON sa.session_id = r.session_id
                         JOIN users u
-                        ON d.student_id = u.id
-                        WHERE a.assignment_id = %s
-                    """, (code,))
-                    informations = cur.fetchall()
-            return render_template('layouts/teacher/assignments/teacher-assignments.html', informations=informations)
+                        ON r.student_id = u.id
+                        WHERE sa.assignment_id = %s
+                    """, (assignment_id,))
+                    assignments = cur.fetchall()
+
+                    cur.execute("""
+                        SELECT up.upload_name, up.upload_id, us.id
+                        FROM uploads up JOIN users us
+                        ON us.id = up.owner_id
+                        WHERE assignment_id = %s
+                    """, (assignment_id,))
+                    uploads = cur.fetchall()
+            return render_template('layouts/teacher/assignments/teacher-assignments.html', heading=heading, assignments=assignments, uploads=uploads)
 
         else:
             flash('Something went wrong.')

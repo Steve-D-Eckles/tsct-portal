@@ -34,7 +34,7 @@ def assignments():
             with get_db() as con:
                 with con.cursor() as cur:
                     cur.execute("""
-                        SELECT a.name, a.description, a.points, s.due_date FROM assignments a JOIN session_assignments s
+                        SELECT a.name, a.description, a.points, s.due_date, a.id, a.assignment_type FROM assignments a JOIN session_assignments s
                         ON a.id = s.assignment_id
                         WHERE session_id = %s
                     """, (session_id,))

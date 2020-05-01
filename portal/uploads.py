@@ -22,6 +22,8 @@ def allowed_file(filename):
 def upload_file():
     if request.method == 'POST':
         assignment_id = request.form['assignment_id']
+# VALIDATE student in roster for class
+
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -36,23 +38,35 @@ def upload_file():
             filename = secure_filename(file.filename)
             uploads_path = os.path.join(os.path.dirname(__file__), 'uploads')
             unique_filename = ".".join([str(uuid.uuid4()), filename.rsplit('.', 1)[1].lower()])
-            file.save(os.path.join(uploads_path, unique_filename))
+
             with get_db() as con:
                 with con.cursor() as cur:
                     cur.execute("""
-                        INSERT INTO uploads (upload_name, upload_id, owner_id, assignment_id)
-                        VALUES (%s, %s, %s, %s)
-                    """, (filename, unique_filename, g.user['id'], assignment_id))
-            return redirect(url_for('student.assignments'))
-            #return redirect(url_for('uploads.uploaded_file',
-            #                        unique_filename=unique_filename)) 
+                        SELECT assignment_id
+                        FROM uploads
+                        WHERE owner_id = %s
+                        AND assignment_id = %s
+                    """, (g.user['id'], assignment_id))
+                    first_upload = cur.fetchall()
+            if not first_upload:
+                file.save(os.path.join(uploads_path, unique_filename))
+                with get_db() as con:
+                    with con.cursor() as cur:
+                        cur.execute("""
+                            INSERT INTO uploads (upload_name, upload_id, owner_id, assignment_id)
+                            VALUES (%s, %s, %s, %s)
+                        """, (filename, unique_filename, g.user['id'], assignment_id))
+            else:
+                flash('File already turned in.')
     
-@bp.route('/teacher/assignments/uploads/<unique_filename>')
+        return redirect( url_for('student.assignments') )
+
+@bp.route('/teacher/assignments/uploads/<upload_id>')
 @login_required
 @admin
-def uploaded_file(unique_filename):
+def uploaded_file(upload_id):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               unique_filename)
+                               upload_id)
 
 
 

@@ -55,7 +55,7 @@ def test_submit_assignments(client, auth, app):
     # Client should be able to post updates to change database entry
     client.post(
         '/teacher/assignments/edit/submit',
-        data={'name': 'Biggerest', 'description': 'And besterest', 'points': 500, 'submit': 2}
+        data={'name': 'Biggerest', 'description': 'And besterest', 'points': 500, 'submit': 2, 'assignment_type': 'Handout'}
     )
     # Data for the second assignment should now be updated
     response = client.get('/teacher/assignments')
@@ -64,7 +64,7 @@ def test_submit_assignments(client, auth, app):
     # Teachers should not be able to submit their edits to other teachers' assignments
     client.post(
         '/teacher/assignments/edit/submit',
-        data={'name': 'Mondoest', 'description': 'And besterest', 'points': 500, 'submit': 5}
+        data={'name': 'Mondoest', 'description': 'And besterest', 'points': 500, 'submit': 5, 'assignment_type': 'Upload'}
     )
     response = client.get('/teacher/assignments')
     assert b'Something went wrong.' in response.data
@@ -153,7 +153,7 @@ def test_create_assignments(client, auth, app):
     client.post(
         '/teacher/assignments/create',
         data={'name': 'Wumbo Software', 'description': 'I wumbo, you wumbo, he, she, it... wumbo.',
-              'points': 900, 'course': 1}
+              'points': 900, 'course': 1, 'assignment_type': 'Handout'}
     )
     with app.app_context():
         with get_db() as con:
@@ -165,7 +165,7 @@ def test_create_assignments(client, auth, app):
     response = client.post(
         '/teacher/assignments/create',
         data={'name': 'Wumbo Software', 'description': 'I wumbo, you wumbo, he, she, it... wumbo.',
-              'points': 900, 'course': 4}
+              'points': 900, 'course': 4, 'assignment_type': 'Handout'}
     )
     assert b'Something went wrong.' in response.data
 

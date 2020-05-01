@@ -1,21 +1,23 @@
 {% extends 'layouts/base.html' %}
 {% include 'layouts/teacher-nav.html' %}
 
-{% block title %}Assignments{% endblock %}
-
+{% block title %}Assignment: {{ heading['name'] }}{% endblock %}
 
 {% block content %}
+<p>Requested Submission Type: {{ heading['assignment_type'] }}</p>
 <form method='post' action="{{ url_for('teacher.grade_submission') }}">
-{% for information in informations %}
-    <h2>{{ information['first_name']}}--{{information['last_name']}}</h2>
-    <h3>Assignment name</h3>
-    <h3>{{ information['name'] }}</h3>
-    <p>{{ information['description'] }}</p>
+{% for assignment in assignments %}
+    <h2>{{ assignment['first_name']}}--{{ assignment['last_name'] }}</h2>
+    {% if 'Upload' in assignment['assignment_type'] %}
+      {% for upload in uploads %}
+        <a href="{{ url_for('uploads.uploaded_file', upload_id=upload['upload_id'] ) }}">Upload {{ upload['name'] }}</a>
+      {% endfor %}
+    {% endif %}
+    <p>{{ assignment['description'] }}</p>
     <label>Grade
-      <input type='number' name='grade'>/{{ information['points'] }}</input>
+      <input type='number' name='grade'>/{{ assignment['points'] }}</input>
     </label>
-    <input type="hidden" name="assignment_id" value="{{ information['work_id'] }}">
-    <button type="submit" value="{{ information['id'] }}" name="submission">Submit grades</button>
+    <button type="submit" value="{{ assignment['id'] }}" name="submission">Submit grades</button>
 {% endfor %}
 </form>
 

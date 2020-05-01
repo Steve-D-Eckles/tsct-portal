@@ -63,7 +63,7 @@ CREATE TABLE assignments (
   description text NOT NULL,
   points bigint NOT NULL,
   -- Create a one-to-many relationship between courses and assignments that belong to it
-  course_id bigint NOT NULL REFERENCES courses(id) ON DELETE CASCADE
+  course_id bigint NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
   assignment_type varchar(25) NOT NULL
 );
 
@@ -95,7 +95,7 @@ CREATE TABLE uploads(
   upload_name TEXT NOT NULL,
   upload_id TEXT NOT NULL,
   -- Create a one-to-many relationship between uploaded files and the owner for the uploaded files
-  owner_id bigint REFERENCES users(id) UNIQUE NOT NULL ON DELETE CASCADE,
+  owner_id bigint NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   -- Create a one-to-many relationship between assignments and uploads
-  assignment_id bigint REFERENCES assignments(id) UNIQUE NOT NULL ON DELETE CASCADE,
+  assignment_id bigint NOT NULL REFERENCES assignments(id) ON DELETE CASCADE
 );
