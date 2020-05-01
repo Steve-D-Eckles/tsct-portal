@@ -5,32 +5,34 @@
 {% block title %}TSCT student{% endblock %}
 
 {% block content %}
-
   <section>
     <!-- Greets user -->
     <h2>Hello <span class="greetingname">{{ g.user['first_name']}}!</span></h2>
   </section>
 
   <!-- Shows scheduling for classes -->
-  <section id="schedule">
-    {% if g.user %}
-    <h2>Schedule:</h2>
-      <ul>
-        {% for scheduling in courses %}
-          <li>
-            {{ scheduling['course_name'] }}
-            {{ scheduling['course_code'] }},
-            {{ scheduling['session_name'] }},
-            {{ scheduling['meeting_days'] }},
-            {{ scheduling['meeting_time'] }},
-            {{ scheduling['meeting_place'] }}
-            <form method="post">
-              <button type="submit" name="session_id" value="{{ scheduling['id'] }}" formaction="{{ url_for('student.assignments') }}">Assignments</button>
-              <button type="submit" name="session_id" value="{{ scheduling['id'] }}" formaction="{{ url_for('student.grades') }}">Grade</button>
-            </form>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </section>
+  {% if g.user %}
+    <table>
+      <thead>
+        <tr>
+          <th colspan="8">Schedule</th>
+        </tr>
+      </thead>
+      {% for scheduling in courses %}
+      <tbody>
+        <td>{{ scheduling['course_name'] }}</td>
+        <td>{{ scheduling['course_code'] }}</td>
+        <td>{{ scheduling['session_name'] }}</td>
+        <td>{{ scheduling['meeting_days'] }}</td>
+        <td>{{ scheduling['meeting_time'] }}</td>
+        <td>{{ scheduling['meeting_place'] }}</td>
+        <form method="post">
+          <td><button type="submit" name="session_id" value="{{ scheduling['id'] }}" formaction="{{ url_for('student.assignments') }}">Assignments</button></td>
+          <td><button type="submit" name="session_id" value="{{ scheduling['id'] }}" formaction="{{ url_for('student.grades') }}">Grade</button></td>
+        </form>
+      </tbody>
+      {% endfor %}
+    </table>
+  {% endif %}
+
 {% endblock %}
