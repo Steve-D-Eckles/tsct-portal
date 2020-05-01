@@ -8,16 +8,19 @@
 
   <section id="grade">
     {% if g.user %}
+
+    <h3>{{ session_info['major'] }} {{ session_info['course_code'] }} {{ session_info['session_name'] }} {{session_info['course_name']}} </h3>
       <table>
         <thead>
           <tr>
-            <th>{{ session_info['major'] }} {{ session_info['course_code'] }} {{ session_info['session_name'] }} {{session_info['course_name']}} </th>
+            <th>Assignment name</th>
+            <th>Points</th>
           </tr>
         </thead>
         {% for assignment in assignments %}
         <tbody>
           <td>{{ assignment['name'] }}</td>
-          <td>Points: {{ assignment['grades'] }}/{{ assignment['points'] }}</td>
+          <td>{{ assignment['grades'] }}/{{ assignment['points'] }}</td>
         </tbody>
         {% endfor %}
       </table>

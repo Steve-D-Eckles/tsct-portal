@@ -12,17 +12,19 @@
 
   <!-- Shows scheduling for classes -->
   {% if g.user %}
+  <h2>Schedule</h2>
     <table>
       <thead>
         <tr>
-          <th colspan="8">Schedule</th>
+          <th>Class name</th>
+          <th>Meeting days</th>
+          <th>Meeting time</th>
+          <th>Location</th>
         </tr>
       </thead>
       {% for scheduling in courses %}
       <tbody>
-        <td>{{ scheduling['course_name'] }}</td>
-        <td>{{ scheduling['course_code'] }}</td>
-        <td>{{ scheduling['session_name'] }}</td>
+        <td>{{ scheduling['course_name'] }} {{ scheduling['course_code'] }}{{ scheduling['session_name'] }}</td>
         <td>{{ scheduling['meeting_days'] }}</td>
         <td>{{ scheduling['meeting_time'] }}</td>
         <td>{{ scheduling['meeting_place'] }}</td>
