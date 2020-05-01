@@ -5,12 +5,20 @@
 
 {% block content %}
   <table>
+    <thead>
+      <tr>
+        <th>Assignment Name</th>
+        <th>Due date</th>
+        <th>Description</th>
+        <th>Possible points</th>
+      </tr>
+    </thead>
     {% for assignment in assignments %}
       <tbody>
-        <td><h2>{{ assignment['name'] }}</h2></td>
-        <td>Due Date: {{ assignment['due_date'] }}</td>
-        <td>Description: {{ assignment['description'] }}</td>
-        <td>Possible Points: {{ assignment['points'] }}</td>
+        <td>{{ assignment['name'] }}</td>
+        <td>{{ assignment['due_date'] }}</td>
+        <td> {{ assignment['description'] }}</td>
+        <td> {{ assignment['points'] }}</td>
       </tbody>
     {% endfor %}
   </table>
