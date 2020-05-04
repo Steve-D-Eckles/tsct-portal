@@ -56,10 +56,12 @@ def upload_file():
                             INSERT INTO uploads (upload_name, upload_id, owner_id, assignment_id)
                             VALUES (%s, %s, %s, %s)
                         """, (filename, unique_filename, g.user['id'], assignment_id))
+                flash('File Uploaded Succesfully!')
             else:
                 flash('File already turned in.')
     
-        return redirect( url_for('student.assignments') )
+    #By doing this, a get request is being preformed. This will redirect to student.home because of that
+    return redirect( url_for('student.assignments') )
 
 @bp.route('/teacher/assignments/uploads/<upload_id>')
 @login_required
