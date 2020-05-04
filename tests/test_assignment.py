@@ -127,9 +127,9 @@ def test_grade(client,auth,app):
     #Open up app-context
     with app.app_context():
         #Send post request, requesting to see the assignment with id 1 assert the request is successful
-        assert client.post('/teacher/assignments/grade', data={'assignment_id': 1}).status_code == 200
+        assert client.post('/teacher/assignments/grade', data={'grade': 1}).status_code == 200
         #Assert that you're redirected to 'teacher-assignments.html'
-        assert b'Kevstice--Lueklee' in client.post('/teacher/assignments/grade', data={'assignment_id': 1}).data
+        assert b'Kevstice--Lueklee' in client.post('/teacher/assignments/grade', data={'grade': 1}).data
         #Send a get request to the page
         response = client.get('/teacher/assignments/grade')
         #Make sure you're redirected else where
@@ -138,7 +138,7 @@ def test_grade(client,auth,app):
         # Teachers should not be able to grade assignments that they don't own
         client.post(
             '/teacher/assignments/grade',
-            data={'assignment_id': 5}
+            data={'grade': 5}
         )
         response = client.get('/teacher/courses')
         assert b'Something went wrong.' in response.data

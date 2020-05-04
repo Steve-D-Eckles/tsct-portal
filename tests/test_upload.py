@@ -2,6 +2,7 @@ import pytest
 from portal.db import get_db
 from flask import g, session
 from io import BytesIO
+from portal.uploads import uploaded_file
 
 def test_file_upload(client, auth):
     """Upload a file"""
@@ -62,7 +63,7 @@ def test_file_upload(client, auth):
     # The file would get this error message if it was an invalid type
     assert b'Not a file that can be turned in.' in response.data
 
-def test_uploaded_file(client, auth):
+def test_uploaded_file(app, client, auth):
     """View an uploaded assignment from a student"""
     # First log a student in and make an upload
     auth.student_login()
@@ -72,9 +73,10 @@ def test_uploaded_file(client, auth):
         data={'file': (BytesIO(b'my file contents'), 'test_file.txt'), 'assignment_id': 1}
         )
     auth.logout()
-
-    # Log a teacher in and view the uploaded file
+        
+    # Log a teacher in and  attempt to view the uploaded file
     auth.teacher_login()
 
-    response = client.get('/teacher/assignments/uploads/9bd0ef51-2f7b-4c8d-b376-772bb138b3e0.txt')
-    assert b'my file contents' in response.data
+    # If a page is returned that means that it's name was not saved with a random id so this should assert a 404
+    response = client.get('/teacher/assignments/uploads/test_file.txt')
+    assert response.status_code == 404

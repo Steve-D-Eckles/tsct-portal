@@ -225,24 +225,18 @@ def assign_submit():
 def grade():
     """Display a students assignment information so a teacher can grade the student"""
     if request.method == 'POST':
-<<<<<<< HEAD
-        assignment_id = request.form['assignment_id']
-
-        if validate(assignment_id, 'assignments'):
-=======
         # Get the assignment_id from the form
         code = request.form['grade']
         # Validate that a correct id is being used
         if validate(code, 'assignments'):
             # If validation succeeds, select neccessary data for an assignment to allow a teacher to give a student a grade
->>>>>>> master
             with db.get_db() as con:
                 with con.cursor() as cur:
                     cur.execute("""
                         SELECT name, assignment_type
                         FROM assignments
                         WHERE id = %s
-                    """, (assignment_id,))
+                    """, (code,))
                     heading = cur.fetchone()
 
                     cur.execute("""
@@ -254,7 +248,7 @@ def grade():
                         JOIN users u
                         ON r.student_id = u.id
                         WHERE sa.assignment_id = %s
-                    """, (assignment_id,))
+                    """, (code,))
                     assignments = cur.fetchall()
 
                     cur.execute("""
@@ -262,7 +256,7 @@ def grade():
                         FROM uploads up JOIN users us
                         ON us.id = up.owner_id
                         WHERE assignment_id = %s
-                    """, (assignment_id,))
+                    """, (code,))
                     uploads = cur.fetchall()
             return render_template('layouts/teacher/assignments/teacher-assignments.html', heading=heading, assignments=assignments, uploads=uploads)
 
