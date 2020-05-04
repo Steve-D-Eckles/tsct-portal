@@ -10,7 +10,7 @@
   <h2>{{ assignment['name'] }}</h2>
     <label>{{ assignment['description'] }}</label>
     <p>{{ assignment['points'] }} Points</p>
-  <button type='submit' formaction="{{ url_for('teacher.grade') }}" name='assignment_id' value="{{ assignment['id'] }}">Grade</button>
+  <button type='submit' formaction="{{ url_for('teacher.grade') }}" name='grade' value="{{ assignment['id'] }}">Grade</button>
   {% endfor %}
 </form>
 

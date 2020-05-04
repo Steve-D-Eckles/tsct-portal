@@ -469,3 +469,11 @@ section {
     padding: 1rem 1.5rem;
     margin: 1rem;
 }
+
+.upload_button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: white;
+  color: #337ab7;
+}

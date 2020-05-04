@@ -10,7 +10,7 @@
     <h2>{{ assignment['first_name']}}--{{ assignment['last_name'] }}</h2>
     {% if 'Upload' in assignment['assignment_type'] %}
       {% for upload in uploads %}
-        <a href="{{ url_for('uploads.uploaded_file', upload_id=upload['upload_id'] ) }}">Upload {{ upload['name'] }}</a>
+        <a class="upload_button" href="{{ url_for('uploads.uploaded_file', upload_id=upload['upload_id'] ) }}">Upload {{ upload['upload_name'] }}</a>
       {% endfor %}
     {% endif %}
     <p>{{ assignment['description'] }}</p>
