@@ -225,7 +225,7 @@ def assign_submit():
 def grade():
     # TODO: add docstring / comments
     if request.method == 'POST':
-        assignment_id = request.form['grade']
+        assignment_id = request.form['assignment_id']
 
         if validate(assignment_id, 'assignments'):
             with db.get_db() as con:

@@ -166,3 +166,20 @@ def validate_student():
                 valid_sessions.append(str(row['id']))
 
     return valid_sessions
+
+def validate_roster():
+    """Confirm a student is in roster"""
+    with get_db() as con:
+        with con.cursor() as cur:
+            cur.execute("""
+                SELECT student_id
+                FROM roster
+                WHERE student_id = %s
+            """, (g.user['id'],))
+
+            result = cur.fetchone()
+    
+    if not result:
+        return False
+    else:
+        return True

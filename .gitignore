@@ -114,9 +114,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# Files in uploads directory
-/portal/uploads/*
-
-# Open Files
-.swp
