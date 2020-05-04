@@ -70,7 +70,8 @@ def upload_file():
                 else:
                     flash('File already turned in.')
 
-            flash('Not a file that can be turned in.')
+            else:
+                flash('Not a file that can be turned in.')
         
     # By doing this, a get request is being preformed. This will redirect to student.home
     return redirect( url_for('student.assignments') )
