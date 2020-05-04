@@ -12,12 +12,12 @@
   </section>
 
   <!-- Shows scheduling for classes -->
-  <section id="schedule">
+  <section class="studentHome" id="schedule">
     {% if g.user %}
     <h2>Schedule:</h2>
-      <ul>
+      <ul class="studentHome">
         {% for scheduling in courses %}
-          <li>
+          <li class="studentHome">
             {{ scheduling['course_name'] }}
             {{ scheduling['course_code'] }},
             {{ scheduling['session_name'] }},
@@ -25,8 +25,8 @@
             {{ scheduling['meeting_time'] }},
             {{ scheduling['meeting_place'] }}
             <form method="post">
-              <button type="submit" name="session_id" value="{{ scheduling['id'] }}" formaction="{{ url_for('student.assignments') }}">Assignments</button>
-              <button type="submit" name="session_id" value="{{ scheduling['id'] }}" formaction="{{ url_for('student.grades') }}">Grade</button>
+              <button class="studentHome" type="submit" name="session_id" value="{{ scheduling['id'] }}" formaction="{{ url_for('student.assignments') }}">Assignments</button>
+              <button class="studentHome" type="submit" name="session_id" value="{{ scheduling['id'] }}" formaction="{{ url_for('student.grades') }}">Grade</button>
             </form>
           </li>
         {% endfor %}

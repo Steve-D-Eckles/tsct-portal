@@ -1,422 +1,471 @@
 /**
  * Global Defaults and Typography
  */
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
+ 
+ html {
+   font-family: 'Lato', Helvetica, Arial, sans-serif;
+   font-size: 1vw;
+ }
+ 
+ h1, h2, h3, h4, h5, h6 {
+   font-family: 'Crimson Text', serif;
+   font-weight: 400;
+ }
+ 
+ /**
+  * Layout
+  */
+ body {
+   justify-content: space-between;
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+   padding: 1rem;
+ }
+ 
+ main {
+   box-sizing: border-box;
+   margin: 1vw 0;
+   width: auto;
+   border-style: double;
+   border: #929292;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+ 
+ 
+ @media (min-width: 760px) {
+ 
+   /*** Styling eader & footer ***/
+   header, footer {
+     background-color: #A6094D;
+     border: 5px solid #736b6b;
+     outline-style: inset;
+     display: flex;
+     justify-content: space-between;
+     width: 100%;
+     font-family: 'Crimson Text', serif;
+     font-weight: 400;
+     } 
+     header h1,footer h2 ,footer address {
+       padding-left: 1vw;
+       color: white;
+       text-align:center;
+       width: 40%;
+     }
+ 
+     a[href^="tel:"] {
+       color: white;
+       text-decoration: none;
+     }
+ }
 
-html {
-  font-family: 'Lato', Helvetica, Arial, sans-serif;
-  font-size: 18px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: #a6093d;
-  font-family: 'Crimson Text', serif;
-  font-weight: 400;
-}
-
-
-/**
- * Layout
- */
-body {
-  justify-content: space-between;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  padding: 1rem;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-@media (min-width: 760px) {
-  footer {
-    display: flex;
-    justify-content: space-between;
-  }
-  footer h2,
-  footer address {
-    width: 40%;
-  }
-  
-}
-
-footer {
-  border-top: 1px solid #a6093d;
-}
-
-footer address {
-  color: #a6093d;
-  font-family: 'Crimson Text', serif;
-  font-weight: 400;
-}
-
-a[href^="tel:"] {
-  color: #a6083d;
-  text-decoration: none;
-}
-
-.flash {
-  width: 40%;
-  text-align: center;
-  color: #a6083d;
-  margin: 1em 0;
-  padding: 1em;
-  background-color: #efd3da;
-  border: 1px solid #736b6b;
-}
-
-/**
- * Forms
- */
-form.login {
-  background-color: #a6083d;
-  border: 1px solid black;
-  margin: 0 auto;
-  padding: 1rem;
-  height: 25vh;
-  width: 45vw;
-  color: white;
-  text-shadow: -1px 0 black;
-  border-radius: 10px;
-}
-
-.email, .password {
-  display: flex;
-  width: 100%;
-  margin: 2rem 0;
-}
-
-.email input, .password input {
-  width: 85%;
-  color: black;
-  border: 1px solid #ccc;
-}
-
-.email span, .password span {
-  width: 15%;
-  background-color: #ebebeb;
-  color: #929292;
-  top: 0;
-  padding: 6px 12px;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-right: 0;
-  border-radius: 4px 0 0 4px;
-}
-
-.loginSubmit{
-  display: inline-block;
-  width: 15%;
-  border-radius: 10px;
-  border: 1px solid #0000006e;
-  text-shadow: -1px 0 #00000096;
-  color: #a6093d;
-  transition: all 150ms linear;
-  letter-spacing: 1px;
-}
-
-.loginSubmit:hover {
-  background-color: #ebebeb;
-  text-decoration: none;
-  text-shadow: -1px -1px 0 #00000096;
-  transition: all 300ms linear;
-}
-
-.loginSubmit:active {
-  background-color: #929292;
-  border-top-width: 2px;
-  box-shadow: inset 0 0 16px rgba(0,0,0,0.5);
-}
-
-main a, .deleteCourse {
-  background-color: #a6083d;
-  color: white;
-  border: 1px solid #a6083d;
-  padding: 1rem 1.5rem;
-  margin: 1rem;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-main a:hover, .deleteCourse:hover {
-  background-color: white;
-  color: #a6083d;
-}
-
-.deleteCourse {
-  display: block;
-  width: 15%;
-  margin: 0 auto;
-}
-
-.classSec {
-  width: 100%;
-}
-
-.courseList {
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  list-style-type: none;
-}
-
-li.course {
-  width: 25%;
-  border-radius: 10px;
-  border-right: 1px solid #0000006e;
-  border-bottom: 1px solid #0000006e;
-  background-color: #a6083d;
-  margin: 1rem;
-}
-
-li.course h2, li.course p {
-  color: white;
-  padding: 0 1rem;
-}
-
-li.course h2 {
-  text-align: center;
-}
-
-/***Styling checkboxes***/
-
-.checkbox { 
-  width: 15%;
-  margin: 0;
-  display: flex;
-  cursor: pointer;
-  font-size: 20px;
-} 
-  
-/* Hide the default checkbox in class.html */ 
-.checkbox input[type=checkbox] { 
-    visibility: hidden; 
-    width: 0;
-    height: 0;
-} 
-  
-/* Specify the background color and border to be 
-shown when hovering over checkbox */ 
-.checkbox:hover input ~ .fakeCheckbox { 
-  background-color: white; 
-  border: 1px solid #a6083d;
-} 
-
-/* Specify the background color to be
-shown when hovering over checkbox*/
-.checkbox:active input ~ .fakeCheckbox {
-  background-color: #ebebeb;
-}
-  
-/* Specify the background color and border to be 
-shown when checkbox is checked */ 
-.checkbox input:checked ~ .fakeCheckbox { 
-  background-color: #a6083d;
+ nav {
+   display: flex;
+   flex-direction: row;
+   right: 2.5vw;
+   position: absolute;
+   top: 3.5vw;
+   float: right;
+ }
+ 
+ .flash {
+   width: 40%;
+   text-align: center;
+   color: #a6083d;
+   margin: 1em 0;
+   padding: 1em;
+   background-color: #efd3da;
+   border: 1px solid #736b6b;
+ }
+ 
+ /**
+  * Forms
+  */
+ form.login {
+   color: white;
+   background-color: #a6083d;
+   border: 2px solid black;
+   outline-style: solid;
+   outline-color: #736b6b;
+   margin: 0 auto;
+   padding: .5rem 1rem;
+   height: 27vh;
+   width: 45vw;
+   text-shadow: -1px 0 black;
+ }
+ 
+ .email, .password {
+   display: flex;
+   width: 100%;
+   margin: 2rem 0;
+ }
+ 
+ .email input, .password input {
+   width: 85%;
+   color: black;
+   border: 1px solid #ccc;
+ }
+ 
+ .email span, .password span {
+   width: 15%;
+   background-color: #ebebeb;
+   color: #929292;
+   top: 0;
+   padding: 6px 12px;
+   text-align: center;
+   border: 1px solid #ccc;
+   border-right: 0;
+   border-radius: 4px 0 0 4px;
+ }
+ 
+ .loginSubmit{
+   display: inline-block;
+   width: 15%;
+   border-radius: 10px;
+   border: 1px solid #0000006e;
+   text-shadow: -1px 0 #00000096;
+   color: #a6093d;
+   transition: all 150ms linear;
+   letter-spacing: 1px;
+ }
+ 
+ .loginSubmit:hover {
+   background-color: #ebebeb;
+   text-decoration: none;
+   text-shadow: -1px -1px 0 #00000096;
+   transition: all 300ms linear;
+ }
+ 
+ .loginSubmit:active {
+   background-color: #929292;
+   border-top-width: 2px;
+   box-shadow: inset 0 0 16px rgba(0,0,0,0.5);
+ }
+ 
+ main a, .deleteCourse {
+   background-color: #a6083d;
+   color: white;
+   border: 1vw ridge #ccc;
+   padding: .5vw;
+   margin: 2vw 2vw;
+   text-decoration: none;
+   text-transform: uppercase;
+ }
+ 
+ main a:hover, .deleteCourse:hover {
+   background-color: white;
+   color: #a6083d;
+ }
+ 
+ .deleteCourse {
+   display: block;
+   width: 15%;
+   margin: 0 auto;
+ }
+ 
+ .classSec {
+   width: 100%;
+ }
+ 
+ .courseList {
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   justify-content: center;
+   list-style-type: none;
+ }
+ 
+ li.course {
+   width: 25%;
+   border-radius: 10px;
+   border-right: 1px solid #0000006e;
+   border-bottom: 1px solid #0000006e;
+   background-color: #a6083d;
+   margin: 1rem;
+ }
+ 
+ li.course h2, li.course p {
+   color: white;
+   padding: 0 1rem;
+ }
+ 
+ li.course h2 {
+   text-align: center;
+ }
+ 
+ /***Styling checkboxes***/
+ 
+ .checkbox {
+   width: 15%;
+   margin: 1vw;
+   display: flex;
+   cursor: pointer;
+   font-size: 1vw;
+ } 
    
-}
+ /* Hide the default checkbox in class.html */ 
+ .checkbox input[type=checkbox] { 
+     visibility: hidden; 
+     width: 0;
+     height: 0;
+ } 
+   
+ /* Specify the background color and border to be 
+ shown when hovering over checkbox */ 
+ .checkbox:hover input ~ .fakeCheckbox { 
+   background-color: white; 
+   border: 1px solid #a6083d;
+ } 
+ 
+ /* Specify the background color to be
+ shown when hovering over checkbox*/
+ .checkbox:active input ~ .fakeCheckbox {
+   background-color: #ebebeb;
+ }
+   
+ /* Specify the background color and border to be 
+ shown when checkbox is checked */ 
+ .checkbox input:checked ~ .fakeCheckbox { 
+   background-color: #a6083d;
+    
+ }
+   
+ /* Checkmark to be shown in checkbox */ 
+ /* It is not be shown when not checked */ 
+ .fakeCheckbox::after { 
+     content: ""; 
+     display: none; 
+ } 
+   
+ /* Display checkmark when checked */ 
+ .checkbox input:checked ~ .fakeCheckbox::after { 
+     display: block; 
+ } 
+   
+ /* Styling the checkmark using webkit */ 
+ /* Rotated the rectangle by 45 degree and  
+ showing only two border to make it look 
+ like a tickmark */ 
+ .checkbox .fakeCheckbox::after { 
+     width: 6px; 
+     height: 12px; 
+     border: solid white; 
+     border-width: 0 4px 4px 0; 
+     -webkit-transform: rotate(45deg); 
+     -ms-transform: rotate(45deg); 
+     transform: rotate(45deg); 
+ } 
+ 
+ /***Styling Edit courses button***/
+ 
+ .course button, .createSession button, .editSession button, .submitCourse {
+   display: block;
+   margin: 2vw 2vw;
+   background-color: white;
+   color: #a6083d;
+   border: 1vw double #736b6b;
+   padding: .5rem 1rem;
+   text-transform: uppercase;
+ }
+ 
+ .course button:hover, .createSession button:hover, .editSession button:hover, .submitCourse:hover {
+   background-color: #a6083d;
+   color: white;
+ }
+ 
+ /***Course Checkboxes***/
+ 
+ 
+ .course .checkbox input:checked ~ .fakeCheckbox {
+   border-right: 1px solid white;
+   border-bottom: 1px solid white;
+ }
+ 
+ /* Creating a custom checkbox 
+ based on demand */ 
+ .course .fakeCheckbox { 
+     height: 25px; 
+     width: 25px; 
+     border-right: 1px solid white;
+     border-bottom: 1px solid white;
+     border-radius: 10px 0 10px 0;
+ }
+ 
+ .course .checkbox input:checked ~ .fakeCheckbox::after {
+   margin-left: .5rem;
+   margin-top: .3rem;
+ }
+ 
+ /***Create a Session***/
+ 
+ .createSession, .editSession {
+   box-sizing: border-box;
+   width: 50%;
+   border: 10px double #ccc;
+   color: white;
+   background-color: #a6083d;
+   margin: 2vw 2vw;
+   padding: 2vw 2vw;
+ }
+ 
+ .createSession ul, .editSession ul {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: start;
+   padding: 0;
+   list-style-type: none;
+ }
+ 
+ .createSession ul li, .editSession ul li {
+   display: flex;
+   padding: 1rem;
+   width: 33%;
+ }
+ 
+ .createSession input, .editSession input {
+   color: #ebebeb;
+   margin: 1vw;
+   border: 2px solid #a6093d;
+   outline-style: outset;
+   outline-color: #ccc;
+ }
+ 
+ /***Roster Checkboxes***/
+ 
+ 
+ /* Creating a custom checkbox
+ based on demand */
+ .createSession ul li .fakeCheckbox, .editSession ul li .fakeCheckbox {
+   height: 15px;
+   width: 15px;
+   border: 1px solid white;
+ }
+ 
+ /* Specify the background color and border to be
+ shown when hovering over checkbox */
+ .checkbox:hover input ~ .createSession ul li .fakeCheckbox, .checkbox:hover input ~ .editSession ul li .fakeCheckbox {
+   background-color: white;
+   border: 1px solid #a6083d;
+ }
+ 
+ .checkbox input:checked ~ .fakeCheckbox { 
+   border: 1px solid white;
+ }
+ 
+ .createSession ul li .checkbox input:checked ~ .fakeCheckbox::after, .editSession ul li .checkbox input:checked ~ .fakeCheckbox::after {
+   margin-left: .2rem;
+ }
+ 
+ /*** Session management in sessions.html ***/
+ 
+ .manageSessions {
+   background-color: #a6083d;
+   color: white;
+   padding: 1vw;
+   margin: 1vw;
+   border: 2vw ridge #ccc;
+   outline-style: inset;
+   outline-color: #736b6b;
+ }
+ 
+ .manageSession {
+   margin: 1vw;
+   list-style-type: none;
+   padding: 1vw;
+ }
+ 
+ .manageSession button {
+   outline-style: groove;
+   outline-color: #ccc;
+   background-color: white;
+   color: #a6083d;
+   border: .5vw double #a6093d;
+   text-decoration: none;
+   text-transform: uppercase;
+   margin-left: .5rem;
+ }
+ 
+ .manageSession button:hover {
+   background-color: #a6083d;
+   color: white;
+ }
+ 
+ 
+ /*** Create a Course course-creation.html ***/
+ 
+ .createCourse {
+   background-color: #a6083d;
+   color: white;
+   border: 1px solid black;
+   border-radius: 10px;
+   padding: 3rem;
+   text-align: center;
+ }
+ 
+ .createCourse label, .createCourse select {
+   margin: 0.5rem 2rem;
+ }
+ 
+ .createCourse label input {
+   color: black;
+ }
+ 
+ select {
+   display: block;
+   font-size: 16px;
+   font-family: sans-serif;
+   font-weight: 500;
+   color: #a6083d;
+   line-height: 1.2;
+   padding: .5rem;
+   border: 1px solid #aaa;
+   margin-bottom: .5rem;
+   border-radius: .5rem;
+   background-color: #fff;
+ }
+ select:hover {
+   border-color: black;
+ }
+ 
+ select option {
+   font-weight: normal;
+   color: #a6083d;
+ }
   
-/* Checkmark to be shown in checkbox */ 
-/* It is not be shown when not checked */ 
-.fakeCheckbox::after { 
-    content: ""; 
-    display: none; 
-} 
-  
-/* Display checkmark when checked */ 
-.checkbox input:checked ~ .fakeCheckbox::after { 
-    display: block; 
-} 
-  
-/* Styling the checkmark using webkit */ 
-/* Rotated the rectangle by 45 degree and  
-showing only two border to make it look 
-like a tickmark */ 
-.checkbox .fakeCheckbox::after { 
-    width: 6px; 
-    height: 12px; 
-    border: solid white; 
-    border-width: 0 4px 4px 0; 
-    -webkit-transform: rotate(45deg); 
-    -ms-transform: rotate(45deg); 
-    transform: rotate(45deg); 
-} 
-
-/***Styling Edit courses button***/
-
-.course button, .createSession button, .editSession button, .submitCourse {
-  display: block;
-  margin: 1rem auto;
-  background-color: white;
-  color: #a6083d;
-  border: 1px solid white;
-  padding: .5rem 1rem;
-  text-decoration: none;
-  text-transform: uppercase;
+/*** Teacher Assignment styling ***/
+ 
+ul.teacherAssignments {
+    list-style-type: none;
+    margin: 1vw;
+    padding: 1vw;
+    border: 1vw double #a6093d;
+    outline-style: ridge;
+    outline-color: #ccc;
 }
 
-.course button:hover, .createSession button:hover, .editSession button:hover, .submitCourse:hover {
-  background-color: #a6083d;
-  color: white;
+button.teacherAssignments {
+    border: 1vw double #a6093d;
+    outline-color: #ccc;
+    margin: .5vw;
 }
 
-/***Course Checkboxes***/
+/*** Student Styling ***/
 
-
-.course .checkbox input:checked ~ .fakeCheckbox {
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
+section#grade {
+    border: 1vw inset #a6093d;
+    outline-style: double;
+    padding: 1vw;
+    margin: 1vw;
+    outline-color: #ccc;
 }
 
-/* Creating a custom checkbox 
-based on demand */ 
-.course .fakeCheckbox { 
-    height: 25px; 
-    width: 25px; 
-    border-right: 1px solid white;
-    border-bottom: 1px solid white;
-    border-radius: 10px 0 10px 0;
+section {
+    background-color: #a6083d;
+    color: white;
+    border: 1vw groove #ccc;
+    padding: 1rem 1.5rem;
+    margin: 1rem;
 }
-
-.course .checkbox input:checked ~ .fakeCheckbox::after {
-  margin-left: .5rem;
-  margin-top: .3rem;
-}
-
-/***Create a Session***/
-
-.createSession, .editSession {
-  align-self: start;
-  color: white;
-  background-color: #a6083d;
-  width: 50%;
-  margin: 1rem;
-  padding: 2rem 2rem 0 2rem;
-  border: 1px solid black;
-  border-radius: 10px;
-}
-
-.createSession ul, .editSession ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-  padding: 0;
-  list-style-type: none;
-}
-
-.createSession ul li, .editSession ul li {
-  display: flex;
-  padding: 1rem;
-  width: 33%;
-}
-
-.createSession input, .editSession input {
-  color: black;
-  margin-right: 1rem;
-}
-
-/***Roster Checkboxes***/
-
-
-/* Creating a custom checkbox
-based on demand */
-.createSession ul li .fakeCheckbox, .editSession ul li .fakeCheckbox {
-  height: 15px;
-  width: 15px;
-  border: 1px solid white;
-}
-
-/* Specify the background color and border to be
-shown when hovering over checkbox */
-.checkbox:hover input ~ .createSession ul li .fakeCheckbox, .checkbox:hover input ~ .editSession ul li .fakeCheckbox {
-  background-color: white;
-  border: 1px solid #a6083d;
-}
-
-.checkbox input:checked ~ .fakeCheckbox { 
-  border: 1px solid white;
-}
-
-.createSession ul li .checkbox input:checked ~ .fakeCheckbox::after, .editSession ul li .checkbox input:checked ~ .fakeCheckbox::after {
-  margin-left: .2rem;
-}
-
-/*** Session management in sessions.html ***/
-
-.manageSessions {
-  background-color: #a6083d;
-  color: white;
-  border: 1px solid black;
-  border-radius: 10px;
-}
-
-.manageSession {
-  margin: 1rem;
-  list-style-type: square;
-}
-
-.manageSession button {
-  background-color: white;
-  color: #a6083d;
-  border: 1px solid white;
-  text-decoration: none;
-  text-transform: uppercase;
-  margin-left: .5rem;
-}
-
-.manageSession button:hover {
-  background-color: #a6083d;
-  color: white;
-}
-
-
-/*** Create a Course course-creation.html ***/
-
-.createCourse {
-  background-color: #a6083d;
-  color: white;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 3rem;
-  text-align: center;
-}
-
-.createCourse label, .createCourse select {
-  margin: 0.5rem 2rem;
-}
-
-.createCourse label input {
-  color: black;
-}
-
-select {
-	display: block;
-	font-size: 16px;
-	font-family: sans-serif;
-	font-weight: 500;
-	color: #a6083d;
-	line-height: 1.2;
-  padding: .5rem;
-	border: 1px solid #aaa;
-  margin-bottom: .5rem;
-	border-radius: .5rem;
-	background-color: #fff;
-}
-select:hover {
-	border-color: black;
-}
-
-select option {
-	font-weight: normal;
-	color: #a6083d;
-}
-
