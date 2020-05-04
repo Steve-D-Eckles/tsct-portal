@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS roster;
 DROP TABLE IF EXISTS assignments CASCADE;
 DROP TABLE IF EXISTS session_assignments CASCADE;
 DROP TABLE IF EXISTS assignment_grades CASCADE;
+DROP TABLE IF EXISTS uploads CASCADE;
 
 -- Users
 CREATE TABLE users (
@@ -62,7 +63,8 @@ CREATE TABLE assignments (
   description text NOT NULL,
   points bigint NOT NULL,
   -- Create a one-to-many relationship between courses and assignments that belong to it
-  course_id bigint NOT NULL REFERENCES courses(id) ON DELETE CASCADE
+  course_id bigint NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+  assignment_type varchar(25) NOT NULL
 );
 
 -- Session Assignments
@@ -85,4 +87,15 @@ CREATE TABLE assignment_grades(
   -- Create a one-to-many relationship between assigned work and users
   assigned_id bigint NOT NULL REFERENCES session_assignments(work_id) ON DELETE CASCADE,
   grades varchar(100)
+);
+
+-- Uploads for Assignments
+CREATE TABLE uploads(
+  id bigserial PRIMARY KEY,
+  upload_name TEXT NOT NULL,
+  upload_id TEXT NOT NULL,
+  -- Create a one-to-many relationship between uploaded files and the owner for the uploaded files
+  owner_id bigint NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  -- Create a one-to-many relationship between assignments and uploads
+  assignment_id bigint NOT NULL REFERENCES assignments(id) ON DELETE CASCADE
 );

@@ -5,15 +5,12 @@
 
 {% block content %}
 <form method='post'>
-<h2>List of assignments</h2>
-{% for assignment in assignments %}
-<h3>{{ assignment['name'] }}</h3>
-<label>{{ assignment['description'] }}</label>
-<p>{{ assignment['points'] }} Points</p>
-<button type='submit'formaction="{{ url_for('teacher.grade') }}"name='grade'value="{{ assignment['id'] }}">Grade</button>
-{% endfor %}
+  <h2>List of assignments</h2>
+  {% for assignment in assignments %}
+    <h3>{{ assignment['name'] }}</h3>
+    <label>{{ assignment['description'] }}</label>
+     <p>{{ assignment['points'] }} Points</p>
+    <button type='submit'formaction="{{ url_for('teacher.grade') }}"name='grade'value="{{ assignment['id'] }}">Grade</button>
+  {% endfor %}
 </form>
-
-
-
 {% endblock %}
