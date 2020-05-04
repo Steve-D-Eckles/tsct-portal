@@ -5,13 +5,13 @@
 
 {% block content %}
   <form method="post">
-    <ul>
+    <ul class=teacherAssignments>
       {% for assignment in assignments %}
-      <li>
+      <li class=teacherAssignments>
         {{ assignment['course_name']}}–{{ assignment['name'] }}
         <input type="checkbox" name="id" value="{{ assignment['id'] }}">
-        <button type="submit" formaction="{{ url_for('teacher.edit_assignments') }}" name="edit" value="{{ assignment['id'] }}">Edit</button>
-        <button type="submit" formaction="{{ url_for('teacher.assignment_grades') }}" name="assignment_id" value="{{ assignment['id'] }}">Manage Grades</button>
+        <button class=teacherAssignments type="submit" formaction="{{ url_for('teacher.edit_assignments') }}" name="edit" value="{{ assignment['id'] }}">Edit</button>
+        <button class=teacherAssignments type="submit" formaction="{{ url_for('teacher.assignment_grades') }}" name="assignment_id" value="{{ assignment['id'] }}">Manage Grades</button>
       </li>
       {% endfor %}
     </ul>

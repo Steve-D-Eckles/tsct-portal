@@ -223,11 +223,19 @@ def assign_submit():
 @login_required
 @admin
 def grade():
-    # TODO: add docstring / comments
+    """Display a students assignment information so a teacher can grade the student"""
     if request.method == 'POST':
+<<<<<<< HEAD
         assignment_id = request.form['assignment_id']
 
         if validate(assignment_id, 'assignments'):
+=======
+        # Get the assignment_id from the form
+        code = request.form['grade']
+        # Validate that a correct id is being used
+        if validate(code, 'assignments'):
+            # If validation succeeds, select neccessary data for an assignment to allow a teacher to give a student a grade
+>>>>>>> master
             with db.get_db() as con:
                 with con.cursor() as cur:
                     cur.execute("""
@@ -259,6 +267,7 @@ def grade():
             return render_template('layouts/teacher/assignments/teacher-assignments.html', heading=heading, assignments=assignments, uploads=uploads)
 
         else:
+            # If validation fails, prepare an error to be shown to the user
             flash('Something went wrong.')
     return redirect(url_for('teacher.courses'))
 
@@ -267,10 +276,13 @@ def grade():
 @login_required
 @admin
 def view_assignments():
-    # TODO: add docstring / comments
+    """Display a list of assignments for a specific session"""
     if request.method == 'POST':
+        # Get the session_id from the form
         code = request.form['view-grade']
+        # Validate that a valid session id is being used
         if validate(code, 'sessions'):
+            # If validation succeeds, grab the details for each assignment that belongs to a specific session
             with db.get_db() as con:
                 with con.cursor() as cur:
                     cur.execute("""
@@ -286,6 +298,7 @@ def view_assignments():
                     assignments = cur.fetchall()
             return render_template('layouts/teacher/assignments/view-assignments.html', assignments=assignments)
         else:
+            # If validation fails, prepare an error to be shown to the user
             flash("Something went wrong.")
     return redirect(url_for('teacher.courses'))
 
@@ -293,11 +306,13 @@ def view_assignments():
 @login_required
 @admin
 def grade_submission():
-    # TODO: add docstring / comments
+    """Grade a students assignment"""
     if request.method == 'POST':
+        # Grab all neccessary form data
         grade = request.form['grade']
         student_id = request.form['submission']
         assignment_id = request.form['assignment_id']
+        # If validation succeeds, grade a students assignment
         with db.get_db() as con:
             with con.cursor() as cur:
                 cur.execute("""
@@ -315,9 +330,11 @@ def grade_submission():
 @login_required
 @admin
 def assignment_grades():
-    # TODO: add docstring / comments
+    """Display a list of students grades for a specific assignment"""
     if request.method == 'POST':
+        # Get the assignment_id from the form
         assignment_id = request.form['assignment_id']
+        # Select neccessary information to display a students grade for specific assignment
         with db.get_db() as con:
             with con.cursor() as cur:
                 cur.execute("""
@@ -328,7 +345,7 @@ def assignment_grades():
                     WHERE a.id = %s
                 """, (assignment_id,))
                 assignment = cur.fetchall()
-
+                # Select the assignment name seperately so it can be used as a heading outside of a loop
                 cur.execute("""
                     SELECT name FROM assignments
                     WHERE id = %s
@@ -337,13 +354,16 @@ def assignment_grades():
 
         return render_template('layouts/teacher/assignments/assignment-grades.html', assignment=assignment, assignment_name=assignment_name)
     return redirect(url_for('teacher.home'))
+
 @bp.route('assignments/grades/view-grades', methods=('GET', 'POST'))
 @login_required
 @admin
 def grade_view():
-    # TODO: add docstring / comments
+    """Display a list of students to have option to view their grades"""
     if request.method == 'POST':
+        # Get the session_id from the form
         session = request.form['gradebook']
+        # Select a students name from a roster
         with db.get_db() as con:
             with con.cursor() as cur:
                 cur.execute("""
@@ -357,14 +377,17 @@ def grade_view():
                 students = cur.fetchall()
         return render_template('layouts/teacher/grade/gradebook.html', students=students)
     return redirect(url_for('teacher.sessions'))
+
 @bp.route('assignments/grades/all-grades', methods=('GET', 'POST'))
 @login_required
 @admin
 def personal_grades():
-    # TODO: add docstring / comments
+    """Display a students grade for every assignment as well as a total grade for the session"""
     if request.method == 'POST':
+        # Get the student_id and session_id from the form
         student = request.form['student_id']
         session = request.form['session_id']
+        # Grab the neccessary data to show details for each assignment as well as a grade for each assignment and a total session grade
         with db.get_db() as con:
             with con.cursor() as cur:
                 cur.execute("""
@@ -380,10 +403,12 @@ def personal_grades():
                 WHERE s.session_id = %s AND u.id = %s
                 """, (session, student))
                 grades = cur.fetchall()
+                # Select a students name so it can be used outside of for loop
                 cur.execute("""
                 SELECT first_name, last_name from users WHERE id = %s
                 """, (student))
                 name = cur.fetchall()
+                # TODO: add comments here
                 total_grades = 0
                 personal_points = 0
                 for point in grades:
